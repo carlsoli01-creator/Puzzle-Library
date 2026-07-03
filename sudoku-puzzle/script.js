@@ -1,7 +1,9 @@
 (() => {
   const N = 4;
   const BOX = 2;
-  const GIVENS = 8;
+  // Only 4 empty cells keeps each one a quick single-candidate deduction,
+  // so a casual solver clears the grid in about 30 seconds.
+  const GIVENS = 12;
 
   const boardEl = document.getElementById('sudoku-board');
   const padRow = document.getElementById('pad-row');
