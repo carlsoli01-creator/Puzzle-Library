@@ -261,9 +261,9 @@ body {
 .sum-board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 6px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 1;
   background: #0a0a0a;
   border-radius: 18px;
   padding: 8px;

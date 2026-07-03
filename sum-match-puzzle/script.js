@@ -1,6 +1,8 @@
 (() => {
   const TARGETS = [10, 8, 12];
-  const PAIR_COUNT = 8;
+  // 4 pairs (8 tiles) keeps the scan-and-match search small enough to clear
+  // in about 30 seconds.
+  const PAIR_COUNT = 4;
 
   const heroNumberEl = document.getElementById('matches');
   const heroStatusEl = document.getElementById('hero-status');
