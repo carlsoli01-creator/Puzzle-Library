@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Puzzle — an unscramble puzzle for coders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">{ }</div>
+        <div>
+          <div class="brand-title">Word Puzzle</div>
+          <div class="brand-subtitle">for coders</div>
+        </div>
+      </div>
+      <button class="icon-btn" id="hint-toggle" aria-pressed="false" title="Toggle first-letter hint">?</button>
+    </header>
+
+    <section class="hero">
+      <span class="hero-badge" id="hero-badge"><span class="dot"></span><span id="hero-badge-text">IN PROGRESS</span></span>
+      <div class="hero-metric">
+        <span class="hero-number" id="taps">0</span>
+        <span class="hero-unit">taps</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-foot">
+        <span id="hero-status">unscramble the coding term</span>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 300 140" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 140 L120 40 L170 95 L230 10 L300 90 L300 140 Z" fill="rgba(255,255,255,0.14)"></path>
+        <path d="M120 140 L180 70 L220 105 L300 30 L300 140 Z" fill="rgba(255,255,255,0.1)"></path>
+      </svg>
+    </section>
+
+    <section class="stat-row">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-blue">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="timer">00:00</div>
+        <div class="stat-label">time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-gold">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="letters-left">5</div>
+        <div class="stat-label">letters left</div>
+      </div>
+    </section>
+
+    <section class="board-card">
+      <div class="board-card-head">
+        <div class="board-card-title">
+          <div class="stat-icon stat-icon-green small">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span>Word Board</span>
+        </div>
+        <span class="board-card-meta" id="hint-label">&nbsp;</span>
+      </div>
+      <div class="board-wrap">
+        <div class="word-board" id="word-board">
+          <div class="answer-row" id="answer-row"></div>
+          <div class="pool-row" id="pool-row"></div>
+        </div>
+        <div class="win-overlay" id="win-overlay" hidden>
+          <div class="win-box">
+            <div class="win-title">Solved!</div>
+            <div class="win-detail" id="win-detail"></div>
+            <button class="pill-btn" id="win-next">
+              <span class="pill-btn-icon">&#8635;</span>
+              Next word
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="pill-btn primary" id="new-word-btn">
+        <span class="pill-btn-icon">&#9654;</span>
+        New Word
+      </button>
+      <button class="pill-btn ghost" id="reshuffle-btn">Reshuffle</button>
+    </div>
+
+    <p class="hint">tap a letter to place it &mdash; tap a placed letter to send it back.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
