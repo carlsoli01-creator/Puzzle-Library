@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breathe — a guided breathing exercise</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+  </div>
+
+  <main class="app">
+    <header class="app-header">
+      <h1>Breathe</h1>
+      <p class="tagline">a minute of quiet, whenever you need it</p>
+    </header>
+
+    <section class="stage" aria-live="polite">
+      <svg class="progress-ring" viewBox="0 0 240 240" aria-hidden="true">
+        <circle class="progress-ring__bg" cx="120" cy="120" r="112"></circle>
+        <circle class="progress-ring__bar" id="progress-bar" cx="120" cy="120" r="112"></circle>
+      </svg>
+
+      <div class="breath-circle" id="breath-circle">
+        <div class="breath-core"></div>
+      </div>
+
+      <div class="phase-copy">
+        <div class="phase-label" id="phase-label">Ready?</div>
+        <div class="phase-count" id="phase-count"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="option-group" role="group" aria-label="Breathing pattern">
+        <span class="option-title">pattern</span>
+        <div class="option-row" id="pattern-row">
+          <button class="chip active" data-pattern="box">Box · 4-4-4-4</button>
+          <button class="chip" data-pattern="calm">Calm · 4-7-8</button>
+          <button class="chip" data-pattern="simple">Simple · 4-6</button>
+        </div>
+      </div>
+
+      <div class="option-group" role="group" aria-label="Session length">
+        <span class="option-title">length</span>
+        <div class="option-row" id="duration-row">
+          <button class="chip" data-duration="60">1 min</button>
+          <button class="chip active" data-duration="180">3 min</button>
+          <button class="chip" data-duration="300">5 min</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="primary-btn" id="start-btn">Begin</button>
+        <button class="icon-btn" id="sound-btn" aria-pressed="true" title="Toggle sound">
+          <span id="sound-icon">♪</span>
+        </button>
+      </div>
+
+      <div class="meta-row">
+        <span id="cycle-count">0 cycles</span>
+        <span id="time-remaining">3:00 left</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="complete-overlay" id="complete-overlay" hidden>
+    <div class="complete-card">
+      <div class="complete-title">Nicely done</div>
+      <p class="complete-detail" id="complete-detail"></p>
+      <button class="primary-btn" id="complete-restart">Breathe again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
