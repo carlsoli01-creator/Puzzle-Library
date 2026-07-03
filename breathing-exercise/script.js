@@ -31,12 +31,17 @@
   const phaseCount = document.getElementById('phase-count');
   const progressBar = document.getElementById('progress-bar');
   const startBtn = document.getElementById('start-btn');
+  const startLabel = document.getElementById('start-label');
+  const startIcon = document.getElementById('start-icon');
   const soundBtn = document.getElementById('sound-btn');
   const soundIcon = document.getElementById('sound-icon');
   const patternRow = document.getElementById('pattern-row');
   const durationRow = document.getElementById('duration-row');
   const cycleCountEl = document.getElementById('cycle-count');
   const timeRemainingEl = document.getElementById('time-remaining');
+  const sessionMetaEl = document.getElementById('session-meta');
+  const heroBadge = document.getElementById('hero-badge');
+  const heroBadgeText = document.getElementById('hero-badge-text');
   const completeOverlay = document.getElementById('complete-overlay');
   const completeDetail = document.getElementById('complete-detail');
   const completeRestart = document.getElementById('complete-restart');
@@ -50,6 +55,7 @@
   let sessionSeconds = 180;
   let soundOn = true;
   let running = false;
+  let sessionState = 'idle'; // 'idle' | 'running' | 'paused'
   let cycles = 0;
 
   let stepIndex = 0;
@@ -101,11 +107,25 @@
     });
   }
 
+  function setHeroBadge(text) {
+    heroBadgeText.textContent = text;
+    heroBadge.classList.toggle('active', sessionState === 'running');
+  }
+
+  function setStartButton(label, icon) {
+    startLabel.textContent = label;
+    startIcon.textContent = icon;
+  }
+
+  const ICON_PLAY = '▶';
+  const ICON_PAUSE = '❚❚';
+
   patternRow.addEventListener('click', (e) => {
     const btn = e.target.closest('.chip');
     if (!btn || running) return;
     patternKey = btn.dataset.pattern;
     setChipActive(patternRow, 'pattern', patternKey);
+    sessionMetaEl.textContent = PATTERNS[patternKey].label;
   });
 
   durationRow.addEventListener('click', (e) => {
@@ -113,7 +133,7 @@
     if (!btn || running) return;
     sessionSeconds = Number(btn.dataset.duration);
     setChipActive(durationRow, 'duration', sessionSeconds);
-    timeRemainingEl.textContent = `${formatTime(sessionSeconds)} left`;
+    timeRemainingEl.textContent = formatTime(sessionSeconds);
   });
 
   soundBtn.addEventListener('click', () => {
@@ -145,7 +165,7 @@
       stepIndex += 1;
       if (stepIndex % steps.length === 0) {
         cycles += 1;
-        cycleCountEl.textContent = `${cycles} cycle${cycles === 1 ? '' : 's'}`;
+        cycleCountEl.textContent = String(cycles);
       }
       if (running) runStep();
     }, durationMs);
@@ -182,7 +202,7 @@
   function tickSession() {
     sessionElapsed += 1;
     const remaining = Math.max(0, sessionSeconds - sessionElapsed);
-    timeRemainingEl.textContent = `${formatTime(remaining)} left`;
+    timeRemainingEl.textContent = formatTime(remaining);
     const progress = Math.min(1, sessionElapsed / sessionSeconds);
     progressBar.style.strokeDashoffset = String(RING_CIRCUMFERENCE * (1 - progress));
     if (sessionElapsed >= sessionSeconds) {
@@ -192,13 +212,15 @@
 
   function startSession() {
     running = true;
+    sessionState = 'running';
     cycles = 0;
     stepIndex = 0;
     sessionElapsed = 0;
-    cycleCountEl.textContent = '0 cycles';
-    timeRemainingEl.textContent = `${formatTime(sessionSeconds)} left`;
+    cycleCountEl.textContent = '0';
+    timeRemainingEl.textContent = formatTime(sessionSeconds);
     progressBar.style.strokeDashoffset = String(RING_CIRCUMFERENCE);
-    startBtn.textContent = 'Pause';
+    setStartButton('Pause', ICON_PAUSE);
+    setHeroBadge('IN SESSION');
     setStageDisabled(true);
     runStep();
     sessionTicker = setInterval(tickSession, 1000);
@@ -206,6 +228,7 @@
 
   function pauseSession() {
     running = false;
+    sessionState = 'paused';
     clearTimeout(stepTimer);
     clearInterval(stepCountdownTimer);
     clearInterval(sessionTicker);
@@ -219,12 +242,15 @@
     void breathCircle.offsetWidth;
 
     pausedStepRemainingMs = Math.max(0, stepDurationMs - (performance.now() - stepStartedAt));
-    startBtn.textContent = 'Resume';
+    setStartButton('Resume', ICON_PLAY);
+    setHeroBadge('PAUSED');
   }
 
   function resumeSession() {
     running = true;
-    startBtn.textContent = 'Pause';
+    sessionState = 'running';
+    setStartButton('Pause', ICON_PAUSE);
+    setHeroBadge('IN SESSION');
 
     // Release the freeze and let the circle continue toward its target over
     // only the time that was left in this step, not the full step duration.
@@ -241,6 +267,7 @@
 
   function finishSession() {
     running = false;
+    sessionState = 'idle';
     clearTimeout(stepTimer);
     clearInterval(stepCountdownTimer);
     clearInterval(sessionTicker);
@@ -251,12 +278,14 @@
     phaseCount.textContent = '';
     completeDetail.textContent = `${cycles} cycle${cycles === 1 ? '' : 's'} · ${formatTime(sessionSeconds)} of breathing`;
     completeOverlay.hidden = false;
-    startBtn.textContent = 'Begin';
+    setStartButton('Begin', ICON_PLAY);
+    setHeroBadge('COMPLETE');
     setStageDisabled(false);
   }
 
   function resetToIdle() {
     running = false;
+    sessionState = 'idle';
     clearTimeout(stepTimer);
     clearInterval(stepCountdownTimer);
     clearInterval(sessionTicker);
@@ -267,18 +296,19 @@
     breathCircle.style.transitionDuration = '4s';
     phaseLabel.textContent = 'Ready?';
     phaseCount.textContent = '';
-    cycleCountEl.textContent = '0 cycles';
-    timeRemainingEl.textContent = `${formatTime(sessionSeconds)} left`;
+    cycleCountEl.textContent = '0';
+    timeRemainingEl.textContent = formatTime(sessionSeconds);
     progressBar.style.strokeDashoffset = String(RING_CIRCUMFERENCE);
-    startBtn.textContent = 'Begin';
+    setStartButton('Begin', ICON_PLAY);
+    setHeroBadge('READY');
     setStageDisabled(false);
   }
 
   startBtn.addEventListener('click', () => {
     ensureAudio();
-    if (!running && startBtn.textContent === 'Begin') {
+    if (sessionState === 'idle') {
       startSession();
-    } else if (running) {
+    } else if (sessionState === 'running') {
       pauseSession();
     } else {
       resumeSession();

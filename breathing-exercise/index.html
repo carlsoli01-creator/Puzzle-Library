@@ -7,35 +7,75 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="aurora" aria-hidden="true">
-    <span class="blob blob-a"></span>
-    <span class="blob blob-b"></span>
-    <span class="blob blob-c"></span>
-  </div>
-
   <main class="app">
     <header class="app-header">
-      <h1>Breathe</h1>
-      <p class="tagline">a minute of quiet, whenever you need it</p>
+      <div class="brand">
+        <div class="brand-badge">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 8c2 0 2-3 5-3s3 4 6 4 3-2 5-2M4 13c2 0 2 3 5 3s3-4 6-4 3 2 5 2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="brand-title">Breathe</div>
+          <div class="brand-subtitle">a moment of calm</div>
+        </div>
+      </div>
+      <button class="icon-btn" id="sound-btn" aria-pressed="true" title="Toggle sound">
+        <span id="sound-icon">&#9834;</span>
+      </button>
     </header>
 
-    <section class="stage" aria-live="polite">
-      <svg class="progress-ring" viewBox="0 0 240 240" aria-hidden="true">
-        <circle class="progress-ring__bg" cx="120" cy="120" r="112"></circle>
-        <circle class="progress-ring__bar" id="progress-bar" cx="120" cy="120" r="112"></circle>
-      </svg>
+    <section class="hero" aria-live="polite">
+      <span class="hero-badge" id="hero-badge"><span class="dot"></span><span id="hero-badge-text">READY</span></span>
 
-      <div class="breath-circle" id="breath-circle">
-        <div class="breath-core"></div>
+      <div class="stage">
+        <svg class="progress-ring" viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="progress-ring__bg" cx="120" cy="120" r="112"></circle>
+          <circle class="progress-ring__bar" id="progress-bar" cx="120" cy="120" r="112"></circle>
+        </svg>
+
+        <div class="breath-circle" id="breath-circle">
+          <div class="breath-core"></div>
+        </div>
+
+        <div class="phase-copy">
+          <div class="phase-label" id="phase-label">Ready?</div>
+          <div class="phase-count" id="phase-count"></div>
+        </div>
       </div>
 
-      <div class="phase-copy">
-        <div class="phase-label" id="phase-label">Ready?</div>
-        <div class="phase-count" id="phase-count"></div>
+      <svg class="hero-wave" viewBox="0 0 300 140" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 140 L120 40 L170 95 L230 10 L300 90 L300 140 Z" fill="rgba(255,255,255,0.14)"></path>
+        <path d="M120 140 L180 70 L220 105 L300 30 L300 140 Z" fill="rgba(255,255,255,0.1)"></path>
+      </svg>
+    </section>
+
+    <section class="stat-row">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-green">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 3 6.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 8v4h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="stat-value" id="cycle-count">0</div>
+        <div class="stat-label">cycles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-blue">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="time-remaining">3:00</div>
+        <div class="stat-label">time left</div>
       </div>
     </section>
 
-    <section class="panel">
+    <section class="session-card">
+      <div class="session-card-head">
+        <div class="session-card-title">
+          <div class="stat-icon stat-icon-gold small">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Session</span>
+        </div>
+        <span class="session-card-meta" id="session-meta">Box · 4-4-4-4</span>
+      </div>
+
       <div class="option-group" role="group" aria-label="Breathing pattern">
         <span class="option-title">pattern</span>
         <div class="option-row" id="pattern-row">
@@ -53,26 +93,22 @@
           <button class="chip" data-duration="300">5 min</button>
         </div>
       </div>
-
-      <div class="controls">
-        <button class="primary-btn" id="start-btn">Begin</button>
-        <button class="icon-btn" id="sound-btn" aria-pressed="true" title="Toggle sound">
-          <span id="sound-icon">♪</span>
-        </button>
-      </div>
-
-      <div class="meta-row">
-        <span id="cycle-count">0 cycles</span>
-        <span id="time-remaining">3:00 left</span>
-      </div>
     </section>
+
+    <button class="pill-btn primary" id="start-btn">
+      <span class="pill-btn-icon" id="start-icon">&#9654;</span>
+      <span id="start-label">Begin</span>
+    </button>
   </main>
 
   <div class="complete-overlay" id="complete-overlay" hidden>
     <div class="complete-card">
       <div class="complete-title">Nicely done</div>
       <p class="complete-detail" id="complete-detail"></p>
-      <button class="primary-btn" id="complete-restart">Breathe again</button>
+      <button class="pill-btn primary" id="complete-restart">
+        <span class="pill-btn-icon">&#8635;</span>
+        Breathe again
+      </button>
     </div>
   </div>
 
