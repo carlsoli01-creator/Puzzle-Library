@@ -115,8 +115,10 @@
   }
 
   // A short random walk (rather than a full scramble) keeps the puzzle within
-  // a handful of moves of solved, so a casual solver clears it in ~70-80s.
-  const SHUFFLE_MOVES = 22;
+  // a handful of moves of solved. Solver testing shows depth 7 keeps the
+  // optimal solution length at ~7 moves, clearable by a casual solver in
+  // roughly 15-20s.
+  const SHUFFLE_MOVES = 7;
 
   function shuffle() {
     tiles = solvedState();
