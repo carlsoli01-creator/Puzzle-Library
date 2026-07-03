@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMBER_PUZZLE.EXE — a sliding puzzle for coders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="crt">
+    <header class="topbar">
+      <div class="prompt">&gt;_ <span class="title">NUMBER_PUZZLE</span><span class="cursor">.EXE</span></div>
+      <div class="subtitle">// arrange 1&ndash;15 in order. each digit runs its own color.</div>
+    </header>
+
+    <main class="console">
+      <div class="stats" role="status" aria-live="polite">
+        <div class="stat">
+          <span class="stat-label">moves</span>
+          <span class="stat-value" id="moves">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">time</span>
+          <span class="stat-value" id="timer">00:00</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">base</span>
+          <button class="stat-value toggle" id="base-toggle" aria-pressed="false">DEC</button>
+        </div>
+      </div>
+
+      <div class="board-wrap">
+        <div class="board" id="board" aria-label="15 puzzle board"></div>
+        <div class="win-overlay" id="win-overlay" hidden>
+          <div class="win-box">
+            <div class="win-title">SOLVED()</div>
+            <div class="win-detail" id="win-detail"></div>
+            <button class="btn" id="win-replay">$ run --again</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="shuffle-btn">$ shuffle</button>
+        <button class="btn ghost" id="reset-btn">$ reset</button>
+      </div>
+
+      <p class="hint">click / tap a tile next to the empty cell — or use arrow keys.</p>
+    </main>
+
+    <footer class="footer">Puzzle-Library — number-puzzle-for-coders</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

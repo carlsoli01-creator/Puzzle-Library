@@ -1,0 +1,155 @@
+(() => {
+  const SIZE = 4;
+  const BLANK = 0;
+  const boardEl = document.getElementById('board');
+  const movesEl = document.getElementById('moves');
+  const timerEl = document.getElementById('timer');
+  const baseToggle = document.getElementById('base-toggle');
+  const shuffleBtn = document.getElementById('shuffle-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const winOverlay = document.getElementById('win-overlay');
+  const winDetail = document.getElementById('win-detail');
+  const winReplay = document.getElementById('win-replay');
+
+  let tiles = [];
+  let moves = 0;
+  let seconds = 0;
+  let timerId = null;
+  let running = false;
+  let solved = false;
+  let hex = false;
+
+  const solvedState = () => [...Array(SIZE * SIZE - 1).keys()].map(n => n + 1).concat(BLANK);
+
+  const tileColor = (n) => {
+    const hue = Math.round(((n - 1) * 360) / 15);
+    return `hsl(${hue}, 78%, 58%)`;
+  };
+
+  const format = (n) => (hex ? n.toString(16).toUpperCase() : String(n));
+
+  function render() {
+    boardEl.innerHTML = '';
+    tiles.forEach((value, idx) => {
+      const cell = document.createElement('div');
+      if (value === BLANK) {
+        cell.className = 'tile blank';
+      } else {
+        cell.className = 'tile';
+        cell.style.setProperty('--tile-color', tileColor(value));
+        cell.textContent = format(value);
+        cell.dataset.value = value;
+      }
+      cell.dataset.index = idx;
+      cell.addEventListener('click', () => attemptMove(idx));
+      boardEl.appendChild(cell);
+    });
+  }
+
+  function attemptMove(idx) {
+    if (solved) return;
+    const blankIdx = tiles.indexOf(BLANK);
+    if (!isAdjacent(idx, blankIdx)) return;
+    swap(idx, blankIdx);
+    moves += 1;
+    movesEl.textContent = moves;
+    startTimer();
+    render();
+    checkWin();
+  }
+
+  function isAdjacent(a, b) {
+    const ar = Math.floor(a / SIZE), ac = a % SIZE;
+    const br = Math.floor(b / SIZE), bc = b % SIZE;
+    return (ar === br && Math.abs(ac - bc) === 1) || (ac === bc && Math.abs(ar - br) === 1);
+  }
+
+  function swap(a, b) {
+    [tiles[a], tiles[b]] = [tiles[b], tiles[a]];
+  }
+
+  function startTimer() {
+    if (running || solved) return;
+    running = true;
+    timerId = setInterval(() => {
+      seconds += 1;
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      timerEl.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+
+  function stopTimer() {
+    running = false;
+    clearInterval(timerId);
+  }
+
+  function checkWin() {
+    if (tiles.every((v, i) => v === solvedState()[i])) {
+      solved = true;
+      stopTimer();
+      winDetail.textContent = `${moves} moves · ${timerEl.textContent}`;
+      winOverlay.hidden = false;
+    }
+  }
+
+  function shuffle() {
+    tiles = solvedState();
+    let blankIdx = tiles.indexOf(BLANK);
+    let lastIdx = -1;
+    const shuffleMoves = 400;
+    for (let i = 0; i < shuffleMoves; i++) {
+      const neighbors = [];
+      const r = Math.floor(blankIdx / SIZE), c = blankIdx % SIZE;
+      if (r > 0) neighbors.push(blankIdx - SIZE);
+      if (r < SIZE - 1) neighbors.push(blankIdx + SIZE);
+      if (c > 0) neighbors.push(blankIdx - 1);
+      if (c < SIZE - 1) neighbors.push(blankIdx + 1);
+      const candidates = neighbors.filter(n => n !== lastIdx);
+      const next = candidates[Math.floor(Math.random() * candidates.length)];
+      swap(next, blankIdx);
+      lastIdx = blankIdx;
+      blankIdx = next;
+    }
+    moves = 0;
+    seconds = 0;
+    solved = false;
+    stopTimer();
+    movesEl.textContent = '0';
+    timerEl.textContent = '00:00';
+    winOverlay.hidden = true;
+    render();
+  }
+
+  function handleKey(e) {
+    if (solved) return;
+    const blankIdx = tiles.indexOf(BLANK);
+    const r = Math.floor(blankIdx / SIZE), c = blankIdx % SIZE;
+    let target = null;
+    switch (e.key) {
+      case 'ArrowUp': target = r < SIZE - 1 ? blankIdx + SIZE : null; break;
+      case 'ArrowDown': target = r > 0 ? blankIdx - SIZE : null; break;
+      case 'ArrowLeft': target = c < SIZE - 1 ? blankIdx + 1 : null; break;
+      case 'ArrowRight': target = c > 0 ? blankIdx - 1 : null; break;
+      default: return;
+    }
+    if (target !== null) {
+      e.preventDefault();
+      attemptMove(target);
+    }
+  }
+
+  baseToggle.addEventListener('click', () => {
+    hex = !hex;
+    baseToggle.textContent = hex ? 'HEX' : 'DEC';
+    baseToggle.setAttribute('aria-pressed', String(hex));
+    render();
+  });
+
+  shuffleBtn.addEventListener('click', shuffle);
+  resetBtn.addEventListener('click', shuffle);
+  winReplay.addEventListener('click', shuffle);
+  document.addEventListener('keydown', handleKey);
+
+  shuffle();
+})();
