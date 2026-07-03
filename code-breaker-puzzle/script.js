@@ -1,7 +1,9 @@
 (() => {
-  const CODE_LENGTH = 4;
-  const MAX_GUESSES = 8;
-  const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  // A 3-digit code from a 7-digit pool (210 possibilities) is small enough
+  // for adaptive guessing to crack in 3-4 rounds, landing around a 30s solve.
+  const CODE_LENGTH = 3;
+  const MAX_GUESSES = 6;
+  const DIGITS = [0, 1, 2, 3, 4, 5, 6];
 
   const heroNumberEl = document.getElementById('guess-count');
   const heroStatusEl = document.getElementById('hero-status');
@@ -32,7 +34,7 @@
   let hintOn = true;
 
   function digitColor(d) {
-    const hue = Math.round((d * 360) / 10);
+    const hue = Math.round((d * 360) / DIGITS.length);
     return `hsl(${hue}, 78%, 58%)`;
   }
 
@@ -132,7 +134,7 @@
       const close = last.feedback.filter(f => f === 'close').length;
       heroStatusEl.textContent = `${exact} exact · ${close} close`;
     } else {
-      heroStatusEl.textContent = 'crack the 4-digit code — no repeated digits';
+      heroStatusEl.textContent = 'crack the 3-digit code — no repeated digits';
     }
   }
 
