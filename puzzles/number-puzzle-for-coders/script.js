@@ -93,12 +93,15 @@
     }
   }
 
+  // A short random walk (rather than a full scramble) keeps the puzzle within
+  // a handful of moves of solved, so a casual solver clears it in ~70-80s.
+  const SHUFFLE_MOVES = 22;
+
   function shuffle() {
     tiles = solvedState();
     let blankIdx = tiles.indexOf(BLANK);
     let lastIdx = -1;
-    const shuffleMoves = 400;
-    for (let i = 0; i < shuffleMoves; i++) {
+    for (let i = 0; i < SHUFFLE_MOVES; i++) {
       const neighbors = [];
       const r = Math.floor(blankIdx / SIZE), c = blankIdx % SIZE;
       if (r > 0) neighbors.push(blankIdx - SIZE);
@@ -110,6 +113,12 @@
       swap(next, blankIdx);
       lastIdx = blankIdx;
       blankIdx = next;
+    }
+    // A short walk can occasionally cycle back to solved; nudge it if so.
+    if (tiles.every((v, i) => v === solvedState()[i])) {
+      const blank = tiles.indexOf(BLANK);
+      const swapWith = blank >= SIZE ? blank - SIZE : blank + SIZE;
+      swap(blank, swapWith);
     }
     moves = 0;
     seconds = 0;
