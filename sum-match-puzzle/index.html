@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sum Match — a number pairing puzzle for coders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">&Sigma;</div>
+        <div>
+          <div class="brand-title">Sum Match</div>
+          <div class="brand-subtitle">for coders</div>
+        </div>
+      </div>
+      <button class="icon-btn" id="target-toggle" aria-pressed="true" title="Change target sum">10</button>
+    </header>
+
+    <section class="hero">
+      <span class="hero-badge" id="hero-badge"><span class="dot"></span><span id="hero-badge-text">IN PROGRESS</span></span>
+      <div class="hero-metric">
+        <span class="hero-number" id="matches">0</span>
+        <span class="hero-unit">/ 8 matched</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-foot">
+        <span id="hero-status">tap two tiles that add up to 10</span>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 300 140" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 140 L120 40 L170 95 L230 10 L300 90 L300 140 Z" fill="rgba(255,255,255,0.14)"></path>
+        <path d="M120 140 L180 70 L220 105 L300 30 L300 140 Z" fill="rgba(255,255,255,0.1)"></path>
+      </svg>
+    </section>
+
+    <section class="stat-row">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-blue">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="timer">00:00</div>
+        <div class="stat-label">time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-gold">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="pairs-left">8</div>
+        <div class="stat-label">pairs left</div>
+      </div>
+    </section>
+
+    <section class="board-card">
+      <div class="board-card-head">
+        <div class="board-card-title">
+          <div class="stat-icon stat-icon-green small">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 10h16M10 4v16" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Sum Board</span>
+        </div>
+        <span class="board-card-meta">sum = <span id="target-meta">10</span></span>
+      </div>
+      <div class="board-wrap">
+        <div class="sum-board" id="sum-board"></div>
+        <div class="win-overlay" id="win-overlay" hidden>
+          <div class="win-box">
+            <div class="win-title">Solved!</div>
+            <div class="win-detail" id="win-detail"></div>
+            <button class="pill-btn" id="win-next">
+              <span class="pill-btn-icon">&#8635;</span>
+              Play again
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="pill-btn primary" id="new-game-btn">
+        <span class="pill-btn-icon">&#9654;</span>
+        New Game
+      </button>
+      <button class="pill-btn ghost" id="reshuffle-btn">Reshuffle</button>
+    </div>
+
+    <p class="hint">tap two tiles that sum to the target &mdash; a wrong pair just bounces back.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
