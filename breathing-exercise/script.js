@@ -52,7 +52,7 @@
   progressBar.style.strokeDashoffset = String(RING_CIRCUMFERENCE);
 
   let patternKey = 'box';
-  let sessionSeconds = 180;
+  let sessionSeconds = 20;
   let soundOn = true;
   let running = false;
   let sessionState = 'idle'; // 'idle' | 'running' | 'paused'

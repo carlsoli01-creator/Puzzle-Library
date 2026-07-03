@@ -5,7 +5,7 @@ A guided breathing exercise for the browser, styled as a soft, card-based dashbo
 ## Features
 
 - **Three breathing patterns**: Box (4-4-4-4), Calm 4-7-8, and Simple (4-6)
-- **Session lengths**: 1, 3, or 5 minutes, tracked by a circular progress ring
+- **Session lengths**: 20, 40, or 60 seconds (defaults to a quick 20s session), tracked by a circular progress ring
 - Animated breathing circle synced to each phase's exact duration
 - Live cycle count and time-left stat cards, plus a session card for pattern/length
 - Optional soft audio cues (togglable) generated with the Web Audio API — no external assets
