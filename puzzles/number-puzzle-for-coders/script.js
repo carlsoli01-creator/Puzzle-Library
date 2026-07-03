@@ -10,6 +10,10 @@
   const winOverlay = document.getElementById('win-overlay');
   const winDetail = document.getElementById('win-detail');
   const winReplay = document.getElementById('win-replay');
+  const outOfPlaceEl = document.getElementById('out-of-place');
+  const heroStatusEl = document.getElementById('hero-status');
+  const heroBadge = document.getElementById('hero-badge');
+  const heroBadgeText = document.getElementById('hero-badge-text');
 
   let tiles = [];
   let moves = 0;
@@ -44,6 +48,20 @@
       cell.addEventListener('click', () => attemptMove(idx));
       boardEl.appendChild(cell);
     });
+    updateStats();
+  }
+
+  function updateStats() {
+    const goal = solvedState();
+    const outOfPlace = tiles.filter((v, i) => v !== BLANK && v !== goal[i]).length;
+    outOfPlaceEl.textContent = outOfPlace;
+    if (solved) {
+      heroStatusEl.textContent = 'solved — nice work';
+    } else if (moves === 0) {
+      heroStatusEl.textContent = 'arrange the tiles in order';
+    } else {
+      heroStatusEl.textContent = `${outOfPlace} tile${outOfPlace === 1 ? '' : 's'} left to place`;
+    }
   }
 
   function attemptMove(idx) {
@@ -90,6 +108,9 @@
       stopTimer();
       winDetail.textContent = `${moves} moves · ${timerEl.textContent}`;
       winOverlay.hidden = false;
+      heroBadge.classList.add('solved');
+      heroBadgeText.textContent = 'SOLVED';
+      updateStats();
     }
   }
 
@@ -127,6 +148,8 @@
     movesEl.textContent = '0';
     timerEl.textContent = '00:00';
     winOverlay.hidden = true;
+    heroBadge.classList.remove('solved');
+    heroBadgeText.textContent = 'IN PROGRESS';
     render();
   }
 

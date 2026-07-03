@@ -6,6 +6,6 @@ A collection of small, self-contained browser puzzles. Each puzzle lives in its 
 
 ### [Number Puzzle for Coders](puzzles/number-puzzle-for-coders/index.html)
 
-A classic 4x4 sliding number puzzle (1&ndash;15) with a black-and-white, terminal-inspired colorway. Every tile number gets its own distinct color pulled from an evenly spaced hue palette, so the numbers pop while the rest of the UI stays monochrome. Includes a move counter, timer, keyboard (arrow key) controls, and a DEC/HEX display toggle for a coder-flavored twist.
+A classic 4x4 sliding number puzzle (1&ndash;15) styled as a soft, card-based dashboard &mdash; a gradient hero card, rounded stat cards, and pill buttons &mdash; while the puzzle board itself stays a dark terminal-style panel where every tile keeps its own distinct color from an evenly spaced hue palette. Includes a move counter, timer, a live "tiles out of place" stat, keyboard (arrow key) controls, and a DEC/HEX display toggle for a coder-flavored twist.
 
 To play, open `puzzles/number-puzzle-for-coders/index.html` in a browser.

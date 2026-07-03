@@ -3,53 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NUMBER_PUZZLE.EXE — a sliding puzzle for coders</title>
+<title>Number Puzzle — a sliding puzzle for coders</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="crt">
-    <header class="topbar">
-      <div class="prompt">&gt;_ <span class="title">NUMBER_PUZZLE</span><span class="cursor">.EXE</span></div>
-      <div class="subtitle">// arrange 1&ndash;15 in order. each digit runs its own color.</div>
-    </header>
-
-    <main class="console">
-      <div class="stats" role="status" aria-live="polite">
-        <div class="stat">
-          <span class="stat-label">moves</span>
-          <span class="stat-value" id="moves">0</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">time</span>
-          <span class="stat-value" id="timer">00:00</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">base</span>
-          <button class="stat-value toggle" id="base-toggle" aria-pressed="false">DEC</button>
+  <main class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">123</div>
+        <div>
+          <div class="brand-title">Number Puzzle</div>
+          <div class="brand-subtitle">for coders</div>
         </div>
       </div>
+      <button class="icon-btn" id="base-toggle" aria-pressed="false" title="Switch number base">DEC</button>
+    </header>
 
+    <section class="hero">
+      <span class="hero-badge" id="hero-badge"><span class="dot"></span><span id="hero-badge-text">IN PROGRESS</span></span>
+      <div class="hero-metric">
+        <span class="hero-number" id="moves">0</span>
+        <span class="hero-unit">moves</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-foot">
+        <span id="hero-status">arrange the tiles in order</span>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 300 140" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 140 L120 40 L170 95 L230 10 L300 90 L300 140 Z" fill="rgba(255,255,255,0.14)"></path>
+        <path d="M120 140 L180 70 L220 105 L300 30 L300 140 Z" fill="rgba(255,255,255,0.1)"></path>
+      </svg>
+    </section>
+
+    <section class="stat-row">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-blue">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="timer">00:00</div>
+        <div class="stat-label">time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-gold">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="stat-value" id="out-of-place">15</div>
+        <div class="stat-label">out of place</div>
+      </div>
+    </section>
+
+    <section class="board-card">
+      <div class="board-card-head">
+        <div class="board-card-title">
+          <div class="stat-icon stat-icon-green small">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 10h16M10 4v16" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Puzzle Board</span>
+        </div>
+        <span class="board-card-meta">4&times;4</span>
+      </div>
       <div class="board-wrap">
         <div class="board" id="board" aria-label="15 puzzle board"></div>
         <div class="win-overlay" id="win-overlay" hidden>
           <div class="win-box">
-            <div class="win-title">SOLVED()</div>
+            <div class="win-title">Solved!</div>
             <div class="win-detail" id="win-detail"></div>
-            <button class="btn" id="win-replay">$ run --again</button>
+            <button class="pill-btn" id="win-replay">
+              <span class="pill-btn-icon">&#8635;</span>
+              Play again
+            </button>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="controls">
-        <button class="btn" id="shuffle-btn">$ shuffle</button>
-        <button class="btn ghost" id="reset-btn">$ reset</button>
-      </div>
+    <div class="controls">
+      <button class="pill-btn primary" id="shuffle-btn">
+        <span class="pill-btn-icon">&#9654;</span>
+        Shuffle
+      </button>
+      <button class="pill-btn ghost" id="reset-btn">Reset</button>
+    </div>
 
-      <p class="hint">click / tap a tile next to the empty cell — or use arrow keys.</p>
-    </main>
-
-    <footer class="footer">Puzzle-Library — number-puzzle-for-coders</footer>
-  </div>
+    <p class="hint">click / tap a tile next to the empty cell &mdash; or use arrow keys.</p>
+  </main>
 
   <script src="script.js"></script>
 </body>
