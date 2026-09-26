@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Genius Lab: train reaction time, memory, focus, maths and reading comprehension, and take a built-in IQ test.">
+<meta name="theme-color" content="#0c0c0b">
+<title>Genius Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#/">
+        <div class="brand-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg>
+        </div>
+        <div>
+          <div class="brand-title">Genius Lab</div>
+          <div class="brand-subtitle">train your mind</div>
+        </div>
+      </a>
+
+      <nav class="side-nav" id="side-nav" aria-label="Main"></nav>
+
+      <div class="side-level card" id="side-level"></div>
+    </aside>
+
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+
+  <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app/js/core.js"></script>
+  <script src="app/js/games-speed.js"></script>
+  <script src="app/js/games-memory.js"></script>
+  <script src="app/js/games-focus.js"></script>
+  <script src="app/js/drills.js"></script>
+  <script src="app/js/articles.js"></script>
+  <script src="app/js/reading.js"></script>
+  <script src="app/js/iq-questions.js"></script>
+  <script src="app/js/iq.js"></script>
+  <script src="app/js/biometrics.js"></script>
+  <script src="app/js/coach.js"></script>
+  <script src="app/js/pages.js"></script>
+</body>
+</html>
