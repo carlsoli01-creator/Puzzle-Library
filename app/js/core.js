@@ -320,9 +320,10 @@
   ];
 
   function buildNav() {
-    const links = GL.NAV.map((n) => '<a href="' + n.href + '" data-nav="' + n.key + '">' + GL.icon(n.icon) + '<span>' + n.label + '</span></a>').join('');
+    const links = GL.NAV.map((n) => '<a href="' + n.href + '" data-nav="' + n.key + '">' + GL.glyph('nav-' + n.key) + '<span>' + n.label + '</span></a>').join('');
     GL.$('#side-nav').innerHTML = links;
     GL.$('#tabbar').innerHTML = links;
+    GL.$('.brand-badge').innerHTML = GL.artwork('genius-lab-brand');
   }
 
   GL.refreshChrome = function () {
@@ -395,7 +396,7 @@
     view.innerHTML =
       '<header class="page-head">' +
         '<a class="back" href="' + backHref + '">' + GL.icon('back') + backLabel + '</a>' +
-        '<div class="title-row"><div class="mod-icon" style="--c:' + m.color + '">' + GL.icon(m.icon) + '</div>' +
+        '<div class="title-row"><div class="mod-icon">' + GL.artwork(m.id) + '</div>' +
         '<div><h1>' + m.title + '</h1><p class="muted">' + m.desc + '</p></div></div>' +
       '</header>' +
       '<div class="game-layout">' +
@@ -427,7 +428,7 @@
 
   GL.intro = function (o) {
     return '<div class="intro">' +
-      '<div class="intro-icon" style="--c:' + o.color + '">' + GL.icon(o.icon) + '</div>' +
+      '<div class="intro-icon">' + GL.artwork('intro:' + o.title) + '</div>' +
       '<h2>' + o.title + '</h2>' +
       '<p class="muted">' + o.text + '</p>' +
       (o.controls || '') +

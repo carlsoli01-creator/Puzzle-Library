@@ -196,7 +196,7 @@
     if (!entries.length) insights.length = 0;
 
     view.innerHTML =
-      '<header class="page-head"><div class="eyebrow">Biometrics</div><h1 class="display">Your cognitive vitals</h1>' +
+      '<header class="page-head"><div class="eyebrow">Biometrics</div><h1 class="display">Your cognitive <em>vitals</em></h1>' +
       '<p class="muted lede">Every session feeds a live statistical model of your mind: speed, memory, focus, numeracy, verbal, reasoning and perception.</p></header>' +
       (entries.length ? '' : '<div class="card empty-state">' + GL.icon('pulse') + '<div><b>No data yet.</b> Complete any activity and your biometrics will come alive.</div><a class="btn primary" href="#/train">Start training</a></div>') +
       '<section class="bio-hero card tone-ash">' +

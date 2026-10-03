@@ -74,7 +74,7 @@
     const best = GL.bestEntry('iq');
     const counts = GL.IQ_SECTIONS.map((s) => [s, GL.IQ_QUESTIONS.filter((q) => q.section === s).length]);
     view.innerHTML =
-      '<header class="page-head"><div class="eyebrow">Assessment</div><h1 class="display">The Genius Lab IQ Test</h1>' +
+      '<header class="page-head"><div class="eyebrow">Assessment</div><h1 class="display">The Genius Lab <em>IQ</em> Test</h1>' +
       '<p class="muted lede">Thirty original questions, from warm-up to fiendish. Work steadily: you can skip and come back to any question before you submit.</p></header>' +
       '<div class="iq-intro">' +
         '<section class="card iq-hero tone-stone">' +
@@ -84,7 +84,7 @@
           '<div class="iq-sections">' + counts.map(([s, n]) => '<span class="chip">' + s + ' &middot; ' + n + '</span>').join('') + '</div>' +
           '<ul class="iq-rules"><li>Find a quiet spot. No calculators or searching.</li><li>Use <kbd>A</kbd>&ndash;<kbd>F</kbd> to answer and <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to move.</li><li>Unanswered questions count as wrong.</li></ul>' +
           '<button class="btn primary big" id="iq-start">' + GL.icon('play') + 'Begin test</button>' +
-          GL.art('brain', 3) +
+          GL.art('iq-test-hero') +
         '</section>' +
         '<aside class="side">' +
           '<div class="card"><h3>Your results</h3>' + (h.length
@@ -214,7 +214,7 @@
     const weakest = secs.slice().sort((a, b) => a[1] / a[2] - b[1] / b[2])[0][0];
 
     view.innerHTML =
-      '<header class="page-head"><a class="back" href="#/iq">' + GL.icon('back') + 'IQ Test</a><div class="eyebrow">Report &middot; ' + new Date(e.t).toLocaleDateString() + '</div><h1 class="display">Your IQ estimate</h1></header>' +
+      '<header class="page-head"><a class="back" href="#/iq">' + GL.icon('back') + 'IQ Test</a><div class="eyebrow">Report &middot; ' + new Date(e.t).toLocaleDateString() + '</div><h1 class="display">Your IQ <em>estimate</em></h1></header>' +
       '<div class="report-grid">' +
         '<section class="card iq-score tone-stone">' +
           (rec ? '<div class="result-badge' + (rec.isBest ? ' best' : '') + '">' + GL.icon(rec.isBest ? 'trophy' : 'check') + (rec.isBest ? 'New personal best' : rec.first ? 'Baseline set' : 'Test complete') + ' &middot; +' + rec.gain + ' XP</div>' : '') +

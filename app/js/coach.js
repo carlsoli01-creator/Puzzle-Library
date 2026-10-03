@@ -248,8 +248,5 @@
     input.focus();
   });
 
-  function quibleeFace() {
-    return '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--sand)"/><path d="M9 17c1-7 6-11 11-11s10 4 11 11" fill="none" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="19" r="2.4" fill="var(--bg)"/><circle cx="25" cy="19" r="2.4" fill="var(--bg)"/><path d="M14.5 25.5c3 2.6 8 2.6 11 0" fill="none" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="5" r="2.2" fill="var(--sand)"/></svg>';
-  }
-  GL.quibleeFace = quibleeFace;
+  function quibleeFace() { return GL.quibleeFace(); }
 })();

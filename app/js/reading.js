@@ -26,7 +26,7 @@
     const avgWpm = h.length ? Math.round(GL.avg(h.slice(-5).map((e) => e.wpm))) : null;
     const avgAcc = h.length ? Math.round(GL.avg(h.slice(-5).map((e) => e.acc)) * 100) : null;
     view.innerHTML =
-      '<header class="page-head"><div class="eyebrow">Reading room</div><h1 class="display">Read &amp; Recall</h1>' +
+      '<header class="page-head"><div class="eyebrow">Reading room</div><h1 class="display">Read &amp; <em>Recall</em></h1>' +
       '<p class="muted lede">Short, true stories from science and history. Read at your natural pace, then prove you understood.</p></header>' +
       '<div class="kpis">' +
         '<div class="kpi"><span>Articles read</span><b>' + new Set(h.map((e) => e.article)).size + '<small>/' + GL.ARTICLES.length + '</small></b></div>' +
@@ -39,7 +39,7 @@
           '<div class="tile-label">' + a.title + '</div>' +
           '<div class="tile-meta">' + a.topic + ' &middot; ' + a.level + ' &middot; ' + Math.ceil(a.words / 230) + ' min</div>' +
           (best ? '<div class="tile-badge">' + GL.icon('check') + Math.round(best.acc * 100) + '%</div>' : '') +
-          GL.art('book', i) +
+          GL.art('article:' + a.id) +
         '</a>';
       }).join('') + '</div>';
   }
