@@ -5,11 +5,11 @@
   // ---------- tile artwork: a tilted "object" peeking out of each card ----------
 
   const PATTERNS = [
-    (id) => '<pattern id="' + id + '" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="10" stroke="currentColor" stroke-width="3" opacity=".35"/></pattern>',
-    (id) => '<pattern id="' + id + '" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.2" fill="currentColor" opacity=".4"/></pattern>',
-    (id) => '<pattern id="' + id + '" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 8 Q4 2 8 8 T16 8" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".4"/></pattern>',
-    (id) => '<pattern id="' + id + '" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M14 0H0V14" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/></pattern>',
-    (id) => '<pattern id="' + id + '" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/><circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".35"/></pattern>',
+    (id) => '<pattern id="' + id + '" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="10" stroke="var(--art-line)" stroke-width="3"/></pattern>',
+    (id) => '<pattern id="' + id + '" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.2" fill="var(--art-line)"/></pattern>',
+    (id) => '<pattern id="' + id + '" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 8 Q4 2 8 8 T16 8" fill="none" stroke="var(--art-line)" stroke-width="1.6"/></pattern>',
+    (id) => '<pattern id="' + id + '" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M14 0H0V14" fill="none" stroke="var(--art-line)" stroke-width="1"/></pattern>',
+    (id) => '<pattern id="' + id + '" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--art-line)" stroke-width="1.4"/><circle cx="20" cy="20" r="8" fill="none" stroke="var(--art-line)" stroke-width="1.4"/></pattern>',
   ];
   let artSeq = 0;
 
@@ -17,9 +17,10 @@
     const id = 'ap' + artSeq++;
     const rot = [-9, 7, -5, 11, -12, 6][i % 6];
     return '<div class="tile-art" style="--rot:' + rot + 'deg" aria-hidden="true"><svg viewBox="0 0 120 120">' +
-      '<defs>' + PATTERNS[i % PATTERNS.length](id) + '<linearGradient id="' + id + 'g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--art-a)"/><stop offset="1" stop-color="var(--art-b)"/></linearGradient></defs>' +
-      '<rect width="120" height="120" rx="18" fill="url(#' + id + 'g)"/><rect width="120" height="120" rx="18" fill="url(#' + id + ')" class="art-pat"/>' +
-      '<g transform="translate(34 30) scale(2.2)" class="art-icon" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + GL.icon(icon).replace(/<svg[^>]*>|<\/svg>/g, '') + '</g>' +
+      '<defs>' + PATTERNS[i % PATTERNS.length](id) + '</defs>' +
+      '<rect width="120" height="120" rx="18" fill="var(--art-a)"/><rect width="120" height="120" rx="18" fill="url(#' + id + ')"/>' +
+      '<rect x="1" y="1" width="118" height="118" rx="17" fill="none" stroke="var(--art-line)" stroke-width="2"/>' +
+      '<g transform="translate(34 30) scale(2.2)" fill="none" stroke="var(--art-ink)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + GL.icon(icon).replace(/<svg[^>]*>|<\/svg>/g, '') + '</g>' +
       '</svg></div>';
   };
 

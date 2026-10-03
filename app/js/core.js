@@ -288,7 +288,7 @@
     const n = domains.length;
     const ang = (i) => -Math.PI / 2 + (i * 2 * Math.PI) / n;
     const pt = (i, r) => [c + Math.cos(ang(i)) * r, c + Math.sin(ang(i)) * r];
-    let s = '<svg class="radar" viewBox="0 0 ' + size + ' ' + size + '" role="img" aria-label="Skill profile">';
+    let s = '<svg class="radar" viewBox="-44 0 ' + (size + 88) + ' ' + size + '" role="img" aria-label="Skill profile">';
     [0.25, 0.5, 0.75, 1].forEach((k) => {
       s += '<polygon points="' + domains.map((_, i) => pt(i, R * k).join(',')).join(' ') + '" fill="none" stroke="var(--line-strong)" stroke-width="1"/>';
     });
